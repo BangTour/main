@@ -1,11 +1,14 @@
-import tf from "@tensorflow/tfjs"
+import tf, { Tensor } from "@tensorflow/tfjs"
 
 
 // Load the TensorFlow SavedModel
 let model;
+const MODEL_LOCATION = ''       //location of the model
+
+
 async function loadModel() {
   try {
-    model = await tf.loadGraphModel('../model/model.json');
+    model = await tf.loadGraphModel(MODEL_LOCATION);
     console.log('Model loaded successfully.');
   } catch (error) {
     console.error('Failed to load the model:', error);
@@ -13,9 +16,10 @@ async function loadModel() {
 }
 
 // Function to send the user ID and book title to the model and get the predicted rating
-async function recommendation(userId, bookTitle) {
+async function recommendation(place     /*all input used in model*/) {
+
     // Preprocess the input data (convert to tensor, expand dimensions, etc.)
-    const placeTensor = tf.tensor([userId]);
+    const placeTensor = tf.tensor([place]);
     // ...
     // Add other input data to convert to tensors
     // e.g. const bookTitleTensor = tf.tensor([bookTitle]);
@@ -39,9 +43,15 @@ export default function handler(req, res){
 
     //verify method
     if(req.method !== "GET") {
-        return res.status(405).json({error: "Method not allowed"});
+      return res.status(405).json({error: "Method not allowed"});
+    } else if ( req.method ==="POST"){
+      // Prediction running
+      let place = JSON.stringify( 
+        recommendation(req.body.user_id  /*all input used in model*/  )
+      );
+      return res.status(200).json({place: place});
     }
-
+    /*
     //authenticate token
     authenticateToken(req, res, async () => {
         let userId;
@@ -71,4 +81,5 @@ export default function handler(req, res){
             res.status(500).json({error: "Something went wrong"});
         }
     });
+    */
 }
