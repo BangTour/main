@@ -1,2 +1,11 @@
-runtime: python39
-entrypoint: gunicorn -b :$PORT wsgi:app
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT main:app
+
+runtime_config:
+  operating_system: "ubuntu22"
+  runtime_version: "3.10"
+
+handlers:
+- url: /.*
+  script: auto
