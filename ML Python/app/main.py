@@ -1,4 +1,8 @@
 from flask import Flask,request, jsonify
+
+from flask_cors import CORS
+
+
 import json
 import numpy as np
 import pandas as pd
@@ -21,6 +25,7 @@ ratings.drop_duplicates(inplace = True)
 
 app = Flask(__name__)
 
+cors = CORS(app)
 
 # Place Recommendation
 @app.route('/place-recommendations', methods=['POST'])
