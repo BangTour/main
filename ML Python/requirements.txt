@@ -1,7 +1,6 @@
 Flask
-gunicorn
 pandas
 numpy
 pickle4
-sklearn
-xgboost
+scikit-learn
+tensorflow
