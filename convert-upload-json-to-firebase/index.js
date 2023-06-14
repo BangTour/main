@@ -4,8 +4,8 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { doc, setDoc, addDoc, collection } from "firebase/firestore"; 
+import { getFirestore, where } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, getDocs, query } from "firebase/firestore"; 
 
 import { readFile } from "fs/promises";
 
@@ -77,16 +77,32 @@ async function addFirebase (){
 
 }
 
-// // run the function
-// convertCsv().then((res) => {
+async function readFirebase (){
+    
+    let data ;
+    //query package ke-100
+    const q = query(collection(db, "package_tourism"), where("Package", "==", "100"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+        data = doc.data();
+        console.log(`${doc.id} => ${doc.data()}`);
+        console.log(data)
+    });
+    return "success"
+}
+
+
+
+// // add to fire base function uncomment this to use it
+// addFirebase().then((res) => {
 //     console.log(res);
-//     addFirebase();
 // }
 // ).catch((err) => {
 //     console.log(err);
 // });
 
-addFirebase().then((res) => {
+// get data from firebase
+readFirebase().then((res) => {
     console.log(res);
 }
 ).catch((err) => {

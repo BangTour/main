@@ -1,4 +1,5 @@
-*/*/node_modules
+
+*/node_modules
 
 # Ignore node modules
 ./ML JS/node_modules
