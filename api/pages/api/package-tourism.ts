@@ -4,8 +4,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, where } from "firebase/firestore";
 import {collection, getDocs, query } from "firebase/firestore"; 
 
+
+
 import { firebaseConfig } from '@/utils/cofig'
+import allowCors from '@/utils/cors';
 import validateQuery from '@/utils/validateQuery'
+
 
 type responseType = {
   message: string,
@@ -19,7 +23,7 @@ const c = "package_tourism"
 
 const db = getFirestore();
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse<responseType>
 ) {
@@ -34,16 +38,26 @@ export default async function handler(
 
     // validate the query string
     const validate_q = ["id"]
-    validateQuery(validate_q, req, res)
+  
+    let valid = await validateQuery(validate_q, req)
+
+    console.log(valid)
+    if(!valid){
+      res.status(400).json({
+        message: "invalid query",
+        data: []
+      });
+      return;
+    }
 
     // if there is no query string, get all
     if ( req_query == null || req_query.id == null) {
-      let dt = []
+      let dt: object[] = []
       // get all the places from the database
       const places = await getDocs(collection(db, c));
       places.forEach((doc) => {
         dt.push(doc.data())
-        console.log(doc.id)
+        // console.log(doc.id)
       });
 
       // return the places
@@ -54,7 +68,7 @@ export default async function handler(
     // get the collection of places from the database
     }else 
     {
-      let dt = []
+      let dt: object[] = []
       const q = query(collection(db, c), where("Package", "==", req_query.id))
       // get all the places from the database
       const places = await getDocs(q);
@@ -80,3 +94,5 @@ export default async function handler(
     });    
   }
 }
+
+export default allowCors(handler)

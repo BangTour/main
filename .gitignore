@@ -1,6 +1,8 @@
 
 */node_modules
 
+*/myvenv
+
 # Ignore node modules
 ./ML JS/node_modules
 ./node_modules

@@ -1,10 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { initializeApp } from "firebase/app";
-import { and, getFirestore, or, where } from "firebase/firestore";
+import { QuerySnapshot, and, getFirestore, or, where } from "firebase/firestore";
 import { doc, setDoc, addDoc, collection, getDocs, query } from "firebase/firestore"; 
 
 import { firebaseConfig } from '@/utils/cofig'
+import allowCors from '@/utils/cors';
 import validateQuery from '@/utils/validateQuery';
 
 type responseType = {
@@ -18,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-export default async function handler(
+ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<responseType>
 ) {
@@ -35,11 +36,21 @@ export default async function handler(
     
     // validate the query string
     const validate_q = ["place_id", "user_id"]
-    validateQuery(validate_q, req, res)
+
+    let valid = await validateQuery(validate_q, req)
+
+    console.log(valid)
+    if(!valid){
+      res.status(400).json({
+        message: "invalid query",
+        data: []
+      });
+      return;
+    }
 
     // if there is no query string, get all
     if ( req_query == null ||( req_query.user_id == null && req_query.place_id == null)) {
-      let dt = []
+      let dt: object[] = []
       // get all the places from the database
       const places = await getDocs(collection(db, c));
       places.forEach((doc) => {
@@ -59,7 +70,7 @@ export default async function handler(
     // get the collection of places from the database by place_id
     else if ( req_query.user_id == null)
     {
-      let dt = [];
+      let dt: object[] = []
 
       const q = query(collection(db, c), where("Place_Id", "==", req_query.place_id))
       // get all the places from the database
@@ -81,7 +92,7 @@ export default async function handler(
     // get the collection of places from the database by user_id
     else if ( req_query.place_id == null)
     {
-      let dt = [];
+      let dt: object[] = []
 
       const q = query(collection(db, c), where("User_Id", "==", req_query.user_id))
       // get all the places from the database
@@ -103,7 +114,7 @@ export default async function handler(
     // get the collection of places from the database by user_id and place_id
     else 
     {
-      let dt = [];
+      let dt: object[] = []
 
       const q = query(collection(db, c),and (
         where("User_Id", "==", req_query.user_id), 
@@ -129,3 +140,5 @@ export default async function handler(
 
 
 }
+
+export default allowCors(handler)

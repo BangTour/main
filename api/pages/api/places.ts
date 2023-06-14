@@ -5,6 +5,7 @@ import { getFirestore, where } from "firebase/firestore";
 import { doc, setDoc, addDoc, collection, getDocs, query } from "firebase/firestore"; 
 
 import { firebaseConfig } from '@/utils/cofig'
+import allowCors from '@/utils/cors';
 import validateQuery from '@/utils/validateQuery';
 
 type responseType = {
@@ -18,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse<responseType>
 ) {
@@ -33,11 +34,21 @@ export default async function handler(
     const validate_q = ["id"]
 
     // validate the query string
-    validateQuery(validate_q, req, res)
+    let valid = await validateQuery(validate_q, req)
 
-    // if there is no query string, get all
+    console.log(valid)
+    if(!valid){
+      res.status(400).json({
+        message: "invalid query",
+        data: []
+      });
+      return;
+    }
+
+
     if ( req_query == null || req_query.id == null) {
-      let dt = []
+    // if there is no query string, get all
+      let dt: object[] = []
       // get all the places from the database
       const places = await getDocs(collection(db, c));
       places.forEach((doc) => {
@@ -54,11 +65,11 @@ export default async function handler(
       });
 
     }
-    
+
     // get the collection of places from the database
     else
     {
-      let dt = [];
+      let dt: object[] = [];
 
       const q = query(collection(db, c), where("Place_Id", "==", req_query.id))
       // get all the places from the database
@@ -76,6 +87,8 @@ export default async function handler(
       });
 
     }
+
+    
 
   // check if the request is a POST reques
   }else if (req.method === 'POST') {
@@ -97,4 +110,4 @@ export default async function handler(
   }
 }
 
-  
+export default allowCors(handler)
