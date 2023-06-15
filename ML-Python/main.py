@@ -27,6 +27,12 @@ app = Flask(__name__)
 
 cors = CORS(app)
 
+@app.route("/", methods=['GET'])
+def check():
+    return {
+            "message": "success",
+            "data": []}
+
 # Place Recommendation
 @app.route('/place-recommendations', methods=['POST'])
 def placeRecommendation():
