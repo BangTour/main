@@ -13,11 +13,11 @@
 .git
 .gitignore
 
-myvenv
+venv
 
 # Python pycache:
 __pycache__/
 # Ignored by the build system
 /setup.cfg
 
-./myvenv/
+./venv/
