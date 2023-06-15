@@ -29,9 +29,7 @@ cors = CORS(app)
 
 @app.route("/", methods=['GET'])
 def check():
-    return {
-            "message": "success",
-            "data": []}
+    return "OK Healthy"
 
 # Place Recommendation
 @app.route('/place-recommendations', methods=['POST'])

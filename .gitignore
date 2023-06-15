@@ -1,7 +1,7 @@
 
 */node_modules
-
 */myvenv
+*/venv
 
 # Ignore node modules
 ./ML JS/node_modules
