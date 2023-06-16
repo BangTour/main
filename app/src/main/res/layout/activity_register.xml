@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register"
+    android:backgroundTint="@color/ColorPrimary">
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="210dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/elip1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/mb"
+        android:text="Create Account"
+        android:textColor="@color/ColorPrimary"
+        android:textSize="25dp"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="39dp"
+        android:layout_height="37dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-5dp"
+        android:layout_marginRight="358dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="14dp"
+        android:src="@drawable/back" />
+
+    <ImageView
+        android:id="@+id/elip"
+        android:layout_width="189dp"
+        android:layout_height="173dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-5dp"
+        android:layout_marginRight="-5dp"
+        android:layout_marginBottom="-4dp"
+        android:src="@drawable/elip" />
+
+    <ImageView
+        android:id="@+id/elip1"
+        android:layout_below="@+id/elip"
+        android:layout_width="189dp"
+        android:layout_height="173dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-5dp"
+        android:layout_marginLeft="-9.5dp"
+        android:layout_marginBottom="-8dp"
+        android:src="@drawable/elip1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/txt1"
+        android:padding="30dp">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_below="@id/txt1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:hint="Full Name"
+            android:paddingLeft="10dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/pm"
+            android:textSize="15dp"
+            android:textColor="@color/ColorPrimary"/>
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_below="@id/name"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:hint="Email"
+            android:paddingLeft="10dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/pm"
+            android:textSize="15dp"
+            android:textColor="@color/ColorPrimary"
+            />
+        <EditText
+            android:id="@+id/phone"
+            android:layout_below="@id/email"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:hint="Phone"
+            android:paddingLeft="10dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/pm"
+            android:textSize="15dp"
+            android:textColor="@color/ColorPrimary"/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_below="@id/phone"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:hint="Password"
+            android:paddingLeft="10dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/pm"
+            android:textSize="15dp"
+            android:textColor="@color/ColorPrimary"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="325dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:width="300dp"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/mm"
+        android:text="Register"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/register"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/pr"
+            android:text="Already have an account?"
+            android:textColor="@color/ColorPrimary"
+            android:textSize="12dp" />
+
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/pb"
+            android:text=" Login"
+            android:textColor="@color/ColorPrimary"
+            android:textSize="12dp" />
+    </LinearLayout>
+</RelativeLayout>

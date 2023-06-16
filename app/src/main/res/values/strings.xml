@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BangTour</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notification_icon_description">Notification Icon</string>
+    <string name="notification_title">Notification</string>
+    <string name="notification_message">Yuk tetap update!!!</string>
+    <string name="notification_action_button">Action Button</string>
+    <string name="favorite_title">Favorite Items</string>
+    <string name="favorite_icon_description">Favorite Icon</string>
+</resources>
